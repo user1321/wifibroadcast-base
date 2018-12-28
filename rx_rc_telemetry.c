@@ -293,7 +293,7 @@ void process_packet(monitor_interface_t *interface, int adapter_no, int serialpo
 	}
     }
 
-    if (type == 0) { // we received a R/C packet
+    if (type == 0 && param_rc_protocol != 98) { // we received a R/C packet
 //	fprintf(stderr, "R/C packet received\n");
 	int len = 0;
 	int lostpackets = 0;
