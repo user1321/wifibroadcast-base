@@ -200,7 +200,7 @@ void sendpacket(uint32_t seqno, uint16_t len, telemetry_data_t *td, int transmis
 //		    fprintf(stderr, "padlen: %d ",padlen);
 		    memcpy(packet_buffer_ath + headers_atheros_len + 6 + len, dummydata, padlen);
 		}
-	        if (write(socks[best_adapter], &packet_buffer_ath, headers_atheros_len + 6 + len + padlen) < 0 ) fprintf(stderr, ".");
+	        if (write(socks[best_adapter], &packet_buffer_ath, headers_atheros_len + 6 + len + padlen) < 0 ) { fprintf(stderr, "."); exit(1); }
 	    } else { // Ralink
 		// telemetry header (seqno and len)
 		memcpy(packet_buffer_ral + headers_ralink_len, &header, 6);
@@ -211,7 +211,7 @@ void sendpacket(uint32_t seqno, uint16_t len, telemetry_data_t *td, int transmis
 //		    fprintf(stderr, "padlen: %d ",padlen);
 		    memcpy(packet_buffer_ral + headers_ralink_len + 6 + len, dummydata, padlen);
 		}
-		if (write(socks[best_adapter], &packet_buffer_ral, headers_ralink_len + 6 + len + padlen) < 0 ) fprintf(stderr, ".");
+		if (write(socks[best_adapter], &packet_buffer_ral, headers_ralink_len + 6 + len + padlen) < 0 ) { fprintf(stderr, "."); exit(1); }
 	    }
 	} else { // transmit on all interfaces
 	    int i;
@@ -237,7 +237,7 @@ void sendpacket(uint32_t seqno, uint16_t len, telemetry_data_t *td, int transmis
 //		    fprintf(stderr,"\n");
 //		    fprintf(stderr," headers_atheros_len:%d ",headers_atheros_len);
 //		    fprintf(stderr," writelen:%d ",headers_atheros_len + 4 + len);
-		    if (write(socks[i], &packet_buffer_ath, headers_atheros_len + 6 + len + padlen) < 0 ) fprintf(stderr, ".");
+		    if (write(socks[i], &packet_buffer_ath, headers_atheros_len + 6 + len + padlen) < 0 ) { fprintf(stderr, "."); exit(1); }
 		} else { // Ralink
 //		    fprintf(stderr,"type: Ralink");
 		    // telemetry header (seqno and len)
@@ -249,7 +249,7 @@ void sendpacket(uint32_t seqno, uint16_t len, telemetry_data_t *td, int transmis
 //			fprintf(stderr, "padlen: %d ",padlen);
 			memcpy(packet_buffer_ral + headers_ralink_len + 6 + len, dummydata, padlen);
 		    }
-		    if (write(socks[i], &packet_buffer_ral, headers_ralink_len + 6 + len + padlen) < 0 ) fprintf(stderr, ".");
+		    if (write(socks[i], &packet_buffer_ral, headers_ralink_len + 6 + len + padlen) < 0 ) { fprintf(stderr, "."); exit(1); }
 		}
 	    }
 	}
